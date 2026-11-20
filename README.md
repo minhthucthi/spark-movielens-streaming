@@ -1,7 +1,5 @@
 # Big Data Lab 02 (CO3137) - Spark Structured Streaming
 
-Dự án hoàn chỉnh giải quyết phần Tutorial và 4 bài tập (Exercise 1 -> 4) của bài Lab 02 môn Big Data (HCMUT).
-
 ## Cấu trúc thư mục
 
 ```text
@@ -22,7 +20,7 @@ spark-movielens-streaming/
 └── README.md                      # Hướng dẫn sử dụng
 ```
 
-## 1. Cách chạy ở nhà bằng Docker
+## Cách chạy local bằng Docker
 
 Mở PowerShell tại thư mục `lab02\spark-movielens-streaming`:
 
@@ -60,38 +58,11 @@ docker compose exec spark python -u source/ex4_stream_stream_join.py
 
 Hoặc mở trình duyệt tại `http://localhost:8888`, vào thư mục `source/` và mở file `lab02_notebook.ipynb` để chạy từng ô trực quan.
 
-### Bước 4: Tắt container khi nghỉ
+### Bước 4: Tắt container khi hoàn tất
 ```powershell
 # Tắt nhưng giữ lại dữ liệu Kafka (lần sau bật lại bằng: docker compose start)
 docker compose stop
 
 # Hoặc tắt và xóa sạch container + dữ liệu Kafka
 docker compose down -v
-```
-
----
-
-## 2. Cách chạy Phần 2 Tutorial (Socket 9999)
-Mở 2 terminal khác nhau cùng vào container `spark`:
-- Terminal 1 (tạo socket nghe cổng 9999, nếu chưa có `nc` có thể cài thêm hoặc chạy bằng `python`):
-  `nc -l -p 9999` (sau đó dán các dòng JSON mẫu trong trang 4 đề bài vào)
-- Terminal 2:
-  `docker compose exec spark python -u source/tutorial_socket.py`
-
----
-
-## 3. Khi lên phòng Lab trường demo (dùng Kafka của trường)
-1. Kết nối vào mạng trường (hoặc VPN trường).
-2. Mở file `source/config.py` (hoặc truyền biến môi trường `KAFKA_SERVERS`), đổi sang 3 broker của phòng Lab (không chạy `setup_kafka.py` lên cluster của trường):
-   ```python
-   KAFKA_SERVERS = "10.1.1.10:30090,10.1.1.27:30091,10.1.1.203:30092"
-   ```
-3. Chạy các file `ex1_prepare_data.py` -> `ex4_stream_stream_join.py` như bình thường.
-
----
-
-## 4. Đóng gói nộp bài
-Nén toàn bộ mã nguồn (`source/`, `output/`, `README.md`, `Dockerfile`, `docker-compose.yml`) và file báo cáo PDF/Word (kèm ảnh chụp nếu có) của nhóm thành file zip đúng tên quy định:
-```text
-CO3137_BigDataLab_Lab02_<Student ID-1>_<Student ID-2>_<Student ID-3>.zip
 ```
